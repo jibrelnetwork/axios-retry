@@ -1,8 +1,8 @@
 {
   "name": "axios-retry",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "author": "Rubén Norte <ruben.norte@softonic.com>",
-  "description": "Axios plugin that intercepts failed requests and retries them whenever posible.",
+  "description": "Axios plugin that intercepts failed requests and retries them whenever possible.",
   "license": "Apache-2.0",
   "main": "index.js",
   "homepage": "https://github.com/softonic/axios-retry",
@@ -31,10 +31,10 @@
     ]
   },
   "dependencies": {
-    "is-retry-allowed": "^1.1.0"
+    "is-retry-allowed": "^1.2.0"
   },
   "devDependencies": {
-    "axios": "^0.15.2",
+    "axios": "~0.19.0",
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
@@ -45,17 +45,17 @@
     "eslint-plugin-jasmine": "^1.8.1",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
-    "jasmine": "^2.4.1",
+    "jasmine": "^3.5.0",
     "lint-staged": "^7.1.2",
-    "nock": "^8.0.0",
+    "nock": "~12.0.0",
     "prettier": "^1.12.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/softonic/axios-retry.git"
+    "url": "git+https://github.com/jibrelnetwork/axios-retry"
   },
   "bugs": {
-    "url": "https://github.com/softonic/axios-retry/issues"
+    "url": "https://github.com/jibrelnetwork/axios-retry"
   },
   "typings": "./index.d.ts"
 }

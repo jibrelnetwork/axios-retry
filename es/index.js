@@ -215,6 +215,12 @@ export default function axiosRetry(axios, defaultOptions) {
         return new Promise(resolve => setTimeout(() => resolve(axios(config)), delay));
       }
 
+      if (config.timeout === 1) {
+        const timeoutError = new Error(config.timeoutErrorMessage);
+        timeoutError.code = 'ECONNABORTED';
+        return Promise.reject(timeoutError);
+      }
+
       return Promise.resolve(response);
     },
     error => {
