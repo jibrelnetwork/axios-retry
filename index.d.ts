@@ -37,13 +37,8 @@ export interface IAxiosRetry {
   ): void
 }
 
-interface IAxiosRetryTransformer {
-  (data: any): any;
-}
-
 export interface AxiosExtendedConfig extends axios.AxiosRequestConfig {
   'axios-retry'?: IAxiosRetryConfig;
-  transformRequest: IAxiosRetryTransformer;
 }
 
 export interface AxiosExtendedInstance extends axios.AxiosInstance {
