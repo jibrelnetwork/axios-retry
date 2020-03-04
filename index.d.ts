@@ -21,13 +21,13 @@ export interface IAxiosRetryConfig {
    *
    * @type {Function}
    */
-  retryCondition?: (error: axios.AxiosError) => boolean,
+  retryCondition?: (error: axios.AxiosError | axios.AxiosResponse) => boolean,
   /**
    * A callback to further control the delay between retry requests. By default there is no delay.
    *
    * @type {Function}
    */
-  retryDelay?: (retryCount: number, error: axios.AxiosError) => number
+  retryDelay?: (retryCount: number, error: axios.AxiosError | axios.AxiosResponse) => number
 }
 
 export interface IAxiosRetry {
@@ -37,7 +37,35 @@ export interface IAxiosRetry {
   ): void
 }
 
-declare const axiosRetry: IAxiosRetry
+interface IAxiosRetryTransformer {
+  (data: any): any;
+}
+
+export interface AxiosExtendedConfig extends axios.AxiosRequestConfig {
+  'axios-retry'?: IAxiosRetryConfig;
+  transformRequest: IAxiosRetryTransformer;
+}
+
+export interface AxiosExtendedInstance extends axios.AxiosInstance {
+  (config: AxiosExtendedConfig): axios.AxiosPromise;
+  (url: string, config?: AxiosExtendedConfig): axios.AxiosPromise;
+  defaults: AxiosExtendedConfig;
+  interceptors: {
+    request: axios.AxiosInterceptorManager<AxiosExtendedConfig>;
+    response: axios.AxiosInterceptorManager<axios.AxiosResponse>;
+  };
+  getUri(config?: AxiosExtendedConfig): string;
+  request<T = any, R = axios.AxiosResponse<T>> (config: AxiosExtendedConfig): Promise<R>;
+  get<T = any, R = axios.AxiosResponse<T>>(url: string, config?: AxiosExtendedConfig): Promise<R>;
+  delete<T = any, R = axios.AxiosResponse<T>>(url: string, config?: AxiosExtendedConfig): Promise<R>;
+  head<T = any, R = axios.AxiosResponse<T>>(url: string, config?: AxiosExtendedConfig): Promise<R>;
+  options<T = any, R = axios.AxiosResponse<T>>(url: string, config?: AxiosExtendedConfig): Promise<R>;
+  post<T = any, R = axios.AxiosResponse<T>>(url: string, data?: any, config?: AxiosExtendedConfig): Promise<R>;
+  put<T = any, R = axios.AxiosResponse<T>>(url: string, data?: any, config?: AxiosExtendedConfig): Promise<R>;
+  patch<T = any, R = axios.AxiosResponse<T>>(url: string, data?: any, config?: AxiosExtendedConfig): Promise<R>;
+}
+
+declare const axiosRetry: IAxiosRetry;
 
 export default axiosRetry
 
